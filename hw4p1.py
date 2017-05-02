@@ -142,6 +142,7 @@ for i in range(epochs):
                 new_bbox = [old_bbox[0]*h_ratio, old_bbox[1]*v_ratio, old_bbox[2]*h_ratio, old_bbox[3]*v_ratio]
                 y_true = np.append(y_true, [new_bbox], axis=0)
             else:
+                print(choice)
                 replace = np.random.choice(x_train_names, 1)
                 pic = imio.imread(image_folder + '/' + replace)
                 v_ratio = pic.shape[1] / img_cols
