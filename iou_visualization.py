@@ -57,7 +57,7 @@ conf = np.reshape(conf, (1419, 1))
 print(np.amax(conf))
 # if(np.amax(conf) is not 0):
 #     conf = conf / np.amax(conf)
-conf = conf / np.amax(conf)
+# conf = conf / np.amax(conf)
 
 y_pred = y_pred[:,:,:-1]
 print(np.amax(conf))
