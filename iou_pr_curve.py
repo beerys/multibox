@@ -101,7 +101,7 @@ for im_name in x_train_names:
     print(conf.shape)
     iou = []
     for box in range(num_boxes):
-        print(y_pred[:,box,:].shape)
+        print(y_pred[box,:].shape)
         iou.append(get_iou(y_pred[:,box,:],new_bbox))
 
     for iou_th in iou_thresh:
