@@ -47,6 +47,7 @@ choice = np.random.choice(x_train_names, 1)
 pic = imio.imread(image_folder + '/' + choice[0])
 (h, w, d) = pic.shape
 resized_pic = tform.resize(pic, size)
+resized_pic = np.reshape(resized_pic, (1,img_rows,img_cols,3))
 
 y_pred = model.predict([resized_pic], batch_size=1, verbose=1)
 conf = y_pred[:,:,-1]
