@@ -52,7 +52,7 @@ resized_pic = np.reshape(resized_pic, (1,img_rows,img_cols,3))
 
 y_pred = model.predict([resized_pic], batch_size=1, verbose=1)
 conf = y_pred[:,:,-1]
-conf = np.reshape(a, (1419, 1))
+conf = np.reshape(conf, (1419, 1))
 conf = conf / np.linalg.norm(conf)
 # print(np.amax(a, axis=0))
 y_pred = y_pred[:,:,:-1]
