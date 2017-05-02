@@ -125,11 +125,14 @@ for im_name in x_train_names:
 for i in iou_thresh:
     for j in threshes:
         pr_curves[i][j] = np.sum(np.asarray(pr_curves[i][j]),axis=1)
-        new_pr[i].append([pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][2]), pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][3])])
+        new_pr[i].append([pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][3]),pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][2])])
+    new_pr[i] = np.asarray(new_pr[i])
 
 plt.figure()
 for i in iou_thresh:
-    plt.plot(new_pr[i])
+    plt.plot(new_pr[i][:,0],new_pr[i][:,1])
 plt.legend(iou_thresh[0], iou_thresh[1])
 plt.title('PR curves for different IOUs')
+plt.ylabel('Precision')
+plt.xlabel('Recall')
 plt.savefig('PR_curves.png')
