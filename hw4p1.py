@@ -133,7 +133,7 @@ for i in range(epochs):
             while(pic.ndim != 3):
                 print(choice)
                 replace = np.random.choice(x_train_names, 1)
-                old_bbox = bbox[replace]
+                old_bbox = bbox[replace[0]]
                 pic = imio.imread(image_folder + '/' + replace[0])
             (h, w, d) = pic.shape
             pic = tform.resize(pic, size)
