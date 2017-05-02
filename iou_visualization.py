@@ -62,7 +62,7 @@ ax.imshow(pic)
 for i in range(1419):
     boxes = y_pred[:,i,:]
     boxes = np.reshape(boxes, (4,1))
-    a = conf[:,i,:]
+    a = conf[:,i]
     ax.add_patch(patches.Rectangle((boxes[3], boxes[0]), boxes[3] - boxes[1], boxes[2] - boxes[0], alpha=float(a), facecolor='green'))
 #plt.title('Bounding boxes in image ' + str(imNum))
 plt.axis('off')
