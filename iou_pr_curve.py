@@ -26,10 +26,10 @@ keras.losses.custom_loss = custom_loss
 
 def get_iou(boxA, boxB):
     # determine the (x, y)-coordinates of the intersection rectangle
-    xA = np.max(boxA[0], boxB[0])
-    yA = np.max(boxA[1], boxB[1])
-    xB = np.min(boxA[2], boxB[2])
-    yB = np.min(boxA[3], boxB[3])
+    xA = np.max([boxA[0], boxB[0]])
+    yA = np.max([boxA[1], boxB[1]])
+    xB = np.min([boxA[2], boxB[2]])
+    yB = np.min([boxA[3], boxB[3]])
 
     # compute the area of intersection rectangle
     interArea = (xB - xA + 1) * (yB - yA + 1)
