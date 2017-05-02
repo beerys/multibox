@@ -3,7 +3,7 @@ from scipy.optimize import linear_sum_assignment
 #import tensorflow as tf
 import keras
 from keras import backend as tf
-import tensorflow.contrib.slim as slim
+
 
 SMALL_EPSILON = 1e-10
 
