@@ -132,7 +132,10 @@ for i in range(epochs):
             v_ratio = pic.shape[1]/img_cols
             h_ratio = pic.shape[0]/img_rows
             pic = tform.resize(pic, size)
-
+            print("pic shape:")
+            print(pic.shape)
+            print("x_shape")
+            print(x_train.shape)
             x_train = np.append(x_train, [pic], axis = 0)
             old_bbox = bbox[choice]
             new_bbox = [old_bbox[0]*h_ratio, old_bbox[1]*v_ratio, old_bbox[2]*h_ratio, old_bbox[3]*v_ratio]
@@ -140,7 +143,7 @@ for i in range(epochs):
 
         y_true = np.reshape(y_true,(batch_size,1,4))
         y_true = np.tile(y_true,(1,1419,1))
-        print(y_true.shape)
+        # print(y_true.shape)
         model.fit(x_train,y_true,shuffle = False)
 
     model.save(model_name + str(i) + '.h5')
