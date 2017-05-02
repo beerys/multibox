@@ -95,6 +95,7 @@ for im_name in x_train_names:
     #conf = conf / np.amax(conf)
 
     y_pred = np.asarray(y_pred[:, :, :-1])
+    new_bbox = np.asarray(new_bbox)
     print(new_bbox.shape)
     print(y_pred.shape)
     print(conf.shape)
