@@ -102,6 +102,8 @@ for im_name in x_train_names:
     iou = []
     for box in range(num_boxes):
         print(y_pred[box,:].shape)
+        print(y_pred[box,:])
+        print(new_bbox)
         iou.append(get_iou(list(y_pred[box,:]),list(new_bbox)))
 
     for iou_th in iou_thresh:
