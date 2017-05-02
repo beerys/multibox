@@ -19,6 +19,7 @@ from get_data_info import get_data_info
 import keras
 from keras.models import Model
 from keras.models import load_model
+from multibox_loss import custom_loss
 
 source_dir = 'CUB_200_2011/CUB_200_2011/'
 image_folder = source_dir + 'images'
