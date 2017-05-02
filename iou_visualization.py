@@ -35,6 +35,7 @@ num_ims = 11788
 num_classes = 200
 img_rows = 299
 img_cols = 299
+num_boxes = 1419
 size = (img_rows,img_cols)
 
 #get info on dataset
@@ -67,7 +68,7 @@ print(conf.shape)
 boxes = []
 fig,ax = plt.subplots(1)
 ax.imshow(pic)
-for i in range(1419):
+for i in range(num_boxes):
     boxes = y_pred[:,i,:]
     boxes = np.reshape(boxes, (4,1))
     boxes = [boxes[0]*h/img_rows, boxes[1]*w/img_cols, boxes[2]*h/img_rows, boxes[3]*w/img_cols]
