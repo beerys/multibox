@@ -87,7 +87,7 @@ for im_name in x_train_names:
         resized_pic = tform.resize(pic, size)
         resized_pic = np.reshape(resized_pic, (1, img_rows, img_cols, 3))
         old_bbox = bbox[im_name]
-        new_bbox = [old_bbox[0] * img_rows / h, old_bbox[1] * img_cols / w, (old_bbox[0] + old_bbox[2]) * img_rows / h,
+        new_bbox = [old_bbox[0] * img_rows / w, old_bbox[1] * img_cols / h, (old_bbox[0] + old_bbox[2]) * img_rows / w,
                 (old_bbox[1] + old_bbox[3]) * img_cols / h]
         y_pred = model.predict([resized_pic], batch_size=1, verbose=0)
         conf = y_pred[:, :, -1]
