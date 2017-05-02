@@ -66,4 +66,5 @@ for i in range(1419):
     ax.add_patch(patches.Rectangle((boxes[3], boxes[0]), boxes[3] - boxes[1], boxes[2] - boxes[0], alpha=float(a), facecolor='green'))
 #plt.title('Bounding boxes in image ' + str(imNum))
 plt.axis('off')
-plt.savefig(model_name + '_predictions_' + choice[0])
+img_name = choice[0].split('/')[1]
+plt.savefig(model_name + '_predictions_' + img_name)
