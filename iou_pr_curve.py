@@ -62,6 +62,14 @@ img_rows = 299
 img_cols = 299
 num_boxes = 1419
 size = (img_rows,img_cols)
+priors = np.zeros((0, 4))
+
+for i in range(num_boxes):
+    col = i % 40
+    row = (i - col) / 40
+    bbox = [6 * row, 6 * col, 50, 50]
+    priors = np.append(priors, [bbox], axis=0)
+priors = np.reshape(priors, (1, num_boxes, 4))
 
 #get info on dataset
 x_train_names, x_test_names, y_train, y_test, classes, bbox = get_data_info(num_ims)
@@ -97,7 +105,7 @@ for im_name in x_train_names:
         #     conf = conf / np.amax(conf)
         #conf = conf / np.amax(conf)
 
-        y_pred = np.reshape(y_pred[:, :, :-1],(num_boxes,4))
+        y_pred = np.reshape(y_pred[:, :, :-1]+priors,(num_boxes,4))
         new_bbox = np.asarray(new_bbox)
     # print(new_bbox.shape)
     # print(y_pred.shape)
