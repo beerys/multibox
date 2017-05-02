@@ -149,7 +149,7 @@ for i in range(epochs):
             pic = tform.resize(pic, size)
 
             x_train = np.append(x_train, [pic], axis = 0)
-            new_bbox = [old_bbox[0]*img_rows/h, old_bbox[1]*img_cols/w, (old_bbox[0]+ old_bbox[2])*img_rows/h, (old_bbox[1]+old_bbox[3])*img_cols/w]
+            new_bbox = [old_bbox[0]*img_rows/w, old_bbox[1]*img_cols/h, (old_bbox[0]+ old_bbox[2])*img_rows/w, (old_bbox[1]+old_bbox[3])*img_cols/h]
             y_true = np.append(y_true, [new_bbox], axis=0)
 
         y_true = np.reshape(y_true,(batch_size,1,4))

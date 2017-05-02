@@ -23,6 +23,7 @@ from keras.models import load_model
 from multibox_loss import custom_loss
 import keras.losses
 keras.losses.custom_loss = custom_loss
+import pickle
 
 def get_iou(boxA, boxB):
     # determine the (x, y)-coordinates of the intersection rectangle
@@ -125,13 +126,20 @@ for im_name in x_train_names:
                         else:
                             TN += 1
                 pr_curves[iou_th][thresh].append([TP, TN, FP, FN])
-
-
+print("Done predicting images")
+prec = 0
+rec = 0
 for i in iou_thresh:
     for j in threshes:
         pr_curves[i][j] = np.sum(np.asarray(pr_curves[i][j]),axis=1)
-        new_pr[i].append([pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][3]),pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][2])])
+        prec = pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][3])
+        rec = pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][2])
+        print(prec)
+        print(rec)
+        new_pr[i].append([prec,rec])
     new_pr[i] = np.asarray(new_pr[i])
+
+pickle.dump(new_pr,open('pr_curves.p','wb'))
 
 plt.figure()
 for i in iou_thresh:
