@@ -132,10 +132,10 @@ for i in range(epochs):
             v_ratio = pic.shape[1]/img_cols
             h_ratio = pic.shape[0]/img_rows
             pic = tform.resize(pic, size)
-            print("pic shape:")
-            print(pic.shape)
-            print("x_shape")
-            print(x_train.shape)
+            # print("pic shape:")
+            # print(pic.shape)
+            # print("x_shape")
+            # print(x_train.shape)
             while(pic.ndim != 3):
                 print(choice)
                 replace = np.random.choice(x_train_names, 1)
