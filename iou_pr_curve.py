@@ -72,10 +72,10 @@ threshes = [.1*i for i in range(10)]
 pr_curves = {}
 new_pr = {}
 for iou in iou_thresh:
-    pr_curves[iou_thresh] = {}
-    new_pr[iou_thresh] = []
+    pr_curves[iou] = {}
+    new_pr[iou] = []
     for thresh in threshes:
-        pr_curves[iou_thresh][threshes] = []
+        pr_curves[iou][thresh] = []
 
 
 for im_name in x_train_names:
