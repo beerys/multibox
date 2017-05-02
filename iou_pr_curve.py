@@ -68,7 +68,7 @@ x_train_names, x_test_names, y_train, y_test, classes, bbox = get_data_info(num_
 
 #load the model
 model = load_model(filepath)
-iou_thresh = [0.25,0.5]
+iou_thresh = [0.1,0.25,0.5]
 threshes = [.1*i for i in range(10)]
 pr_curves = {}
 new_pr = {}
@@ -80,6 +80,7 @@ for iou in iou_thresh:
 
 
 for im_name in x_train_names:
+    print(im_name)
     pic = imio.imread(image_folder + '/' + im_name)
     if pic.ndim == 3:
         (h, w, d) = pic.shape
@@ -127,6 +128,7 @@ for im_name in x_train_names:
                             TN += 1
                 pr_curves[iou_th][thresh].append([TP, TN, FP, FN])
 print("Done predicting images")
+pickle.dump(pr_curves,open('pr_curves.p','wb'))
 prec = 0
 rec = 0
 for i in iou_thresh:
@@ -139,12 +141,12 @@ for i in iou_thresh:
         new_pr[i].append([prec,rec])
     new_pr[i] = np.asarray(new_pr[i])
 
-pickle.dump(new_pr,open('pr_curves.p','wb'))
+pickle.dump(new_pr,open('new_pr.p','wb'))
 
 plt.figure()
 for i in iou_thresh:
     plt.plot(new_pr[i][:,0],new_pr[i][:,1])
-plt.legend(['0.25', '0.5'], loc = 'upper left')
+plt.legend(['0.1','0.25', '0.5'], loc = 'upper left')
 plt.title('PR curves for different IOUs')
 plt.ylabel('Precision')
 plt.xlabel('Recall')

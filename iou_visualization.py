@@ -71,7 +71,7 @@ ax.imshow(pic)
 for i in range(num_boxes):
     boxes = y_pred[:,i,:]
     boxes = np.reshape(boxes, (4,1))
-    boxes = [boxes[0]*h/img_rows, boxes[1]*w/img_cols, boxes[2]*h/img_rows, boxes[3]*w/img_cols]
+    boxes = [boxes[0]*w/img_rows, boxes[1]*h/img_cols, boxes[2]*w/img_rows, boxes[3]*h/img_cols]
     a = conf[i,:]
     # print(a)
     if( a is not 0):
