@@ -71,4 +71,5 @@ for i in range(1419):
 #plt.title('Bounding boxes in image ' + str(imNum))
 plt.axis('off')
 img_name = choice[0].split('/')[1]
+print(img_name)
 plt.savefig(model_name + '_predictions_' + img_name)
