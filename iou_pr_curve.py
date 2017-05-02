@@ -68,7 +68,7 @@ x_train_names, x_test_names, y_train, y_test, classes, bbox = get_data_info(num_
 #load the model
 model = load_model(filepath)
 iou_thresh = [0.25,0.5]
-threshes = list(range(10))*.1
+threshes = [.1*i for i in range(10)]
 pr_curves = {}
 new_pr = {}
 for iou in iou_thresh:
