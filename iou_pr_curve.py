@@ -95,11 +95,12 @@ for im_name in x_train_names:
     #conf = conf / np.amax(conf)
 
     y_pred = y_pred[:, :, :-1]
-    print(np.amax(conf))
+    print(new_bbox.shape)
     print(y_pred.shape)
     print(conf.shape)
     iou = []
     for box in range(num_boxes):
+        print(y_pred[:,box,:].shape)
         iou.append(get_iou(y_pred[:,box,:],new_bbox))
 
     for iou_th in iou_thresh:
