@@ -129,15 +129,16 @@ for i in range(epochs):
         y_true = np.zeros((0,4))
         for choice in choices:
             pic = imio.imread(image_folder + '/' + choice)
+            old_bbox = bbox[choice]
             while(pic.ndim != 3):
                 print(choice)
                 replace = np.random.choice(x_train_names, 1)
+                old_bbox = bbox[replace]
                 pic = imio.imread(image_folder + '/' + replace[0])
             (h, w, d) = pic.shape
             pic = tform.resize(pic, size)
 
             x_train = np.append(x_train, [pic], axis = 0)
-            old_bbox = bbox[choice]
             new_bbox = [old_bbox[0]*img_rows/h, old_bbox[1]*img_cols/w, (old_bbox[0]+ old_bbox[2])*img_rows/h, (old_bbox[1]+old_bbox[3])*img_cols/h]
             y_true = np.append(y_true, [new_bbox], axis=0)
 
