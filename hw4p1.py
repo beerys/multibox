@@ -48,6 +48,16 @@ test_folder = 'Test'
 train_folder = 'Train'
 model_name = 'Multibox_Bird_Model_2'
 filepath = model_name + '.h5'
+num_boxes = 1419
+
+priors = np.zeros((0,4))
+for i in range(num_boxes):
+	col = i % 40
+	row = (i - col) / 40
+	bbox = [6*row, 6*col, 50, 50]
+	priors = np.append(priors, [bbox], axis=0)
+priors = np.reshape(priors, (1, num_boxes,4))
+priors = np.tile(priors, (batch_size,1,1))
 
 x_train_names, x_test_names, y_train, y_test, classes, bbox = get_data_info(num_ims)
 
