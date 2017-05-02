@@ -26,10 +26,10 @@ keras.losses.custom_loss = custom_loss
 
 def get_iou(boxA, boxB):
     # determine the (x, y)-coordinates of the intersection rectangle
-    xA = np.max([boxA[0], boxB[0]])
-    yA = np.max([boxA[1], boxB[1]])
-    xB = np.min([boxA[2], boxB[2]])
-    yB = np.min([boxA[3], boxB[3]])
+    xA = np.amax([boxA[0], boxB[0]])
+    yA = np.amax([boxA[1], boxB[1]])
+    xB = np.amin([boxA[2], boxB[2]])
+    yB = np.amin([boxA[3], boxB[3]])
 
     # compute the area of intersection rectangle
     interArea = (xB - xA + 1) * (yB - yA + 1)
@@ -80,50 +80,51 @@ for iou in iou_thresh:
 
 for im_name in x_train_names:
     pic = imio.imread(image_folder + '/' + im_name)
-    (h, w, d) = pic.shape
-    resized_pic = tform.resize(pic, size)
-    resized_pic = np.reshape(resized_pic, (1, img_rows, img_cols, 3))
-    old_bbox = bbox[im_name]
-    new_bbox = [old_bbox[0] * img_rows / h, old_bbox[1] * img_cols / w, (old_bbox[0] + old_bbox[2]) * img_rows / h,
+    if pic.ndim == 3:
+        (h, w, d) = pic.shape
+        resized_pic = tform.resize(pic, size)
+        resized_pic = np.reshape(resized_pic, (1, img_rows, img_cols, 3))
+        old_bbox = bbox[im_name]
+        new_bbox = [old_bbox[0] * img_rows / h, old_bbox[1] * img_cols / w, (old_bbox[0] + old_bbox[2]) * img_rows / h,
                 (old_bbox[1] + old_bbox[3]) * img_cols / h]
-    y_pred = model.predict([resized_pic], batch_size=1, verbose=1)
-    conf = y_pred[:, :, -1]
-    conf = np.reshape(conf, (1419, 1))
-    print(np.amax(conf))
-    # if(np.amax(conf) is not 0):
-    #     conf = conf / np.amax(conf)
-    #conf = conf / np.amax(conf)
+        y_pred = model.predict([resized_pic], batch_size=1, verbose=1)
+        conf = y_pred[:, :, -1]
+        conf = np.reshape(conf, (1419, 1))
+        print(np.amax(conf))
+        # if(np.amax(conf) is not 0):
+        #     conf = conf / np.amax(conf)
+        #conf = conf / np.amax(conf)
 
-    y_pred = np.reshape(y_pred[:, :, :-1],(num_boxes,4))
-    new_bbox = np.asarray(new_bbox)
-    print(new_bbox.shape)
-    print(y_pred.shape)
-    print(conf.shape)
-    iou = []
-    for box in range(num_boxes):
-        print(y_pred[box,:].shape)
-        print(y_pred[box,:])
-        print(new_bbox)
-        iou.append(get_iou(list(y_pred[box,:]),list(new_bbox)))
+        y_pred = np.reshape(y_pred[:, :, :-1],(num_boxes,4))
+        new_bbox = np.asarray(new_bbox)
+    # print(new_bbox.shape)
+    # print(y_pred.shape)
+    # print(conf.shape)
+        iou = []
+        for box in range(num_boxes):
+        # print(y_pred[box,:].shape)
+        # print(y_pred[box,:])
+        # print(new_bbox)
+            iou.append(get_iou(list(y_pred[box,:]),list(new_bbox)))
 
-    for iou_th in iou_thresh:
-        for thresh in threshes:
-            TP = 0
-            TN = 0
-            FP = 0
-            FN = 0
-            for box in range(num_boxes):
-                if conf[box,:] > thresh:
-                    if iou[box] > iou_th:
-                        TP +=1
+        for iou_th in iou_thresh:
+            for thresh in threshes:
+                TP = 0
+                TN = 0
+                FP = 0
+                FN = 0
+                for box in range(num_boxes):
+                    if conf[box,:] > thresh:
+                        if iou[box] > iou_th:
+                            TP +=1
+                        else:
+                            FP +=1
                     else:
-                        FP +=1
-                else:
-                    if iou[box] > iou_th:
-                        FN += 1
-                    else:
-                        TN += 1
-            pr_curves[iou_th][thresh].append([TP, TN, FP, FN])
+                        if iou[box] > iou_th:
+                            FN += 1
+                        else:
+                            TN += 1
+                pr_curves[iou_th][thresh].append([TP, TN, FP, FN])
 
 
 for i in iou_thresh:
