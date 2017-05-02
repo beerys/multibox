@@ -154,7 +154,7 @@ for i in range(epochs):
         # print(y_true.shape)
         model.fit(x_train,y_true,shuffle = False)
 
-    model.save('models/' + model_name + str(i) + '.h5')
+    model.save('models/' + model_name + '_' + str(i) + '.h5')
 
 model.save(filepath)
 

@@ -18,5 +18,5 @@ def custom_loss(y_true, y_pred):
     y_pred = y_pred[:,:,:-1]
     loc_loss = alpha*K.sum(K.square(y_true-y_pred),axis=2)
     conf_loss = -K.log(conf+epsilon)+K.log(1-conf+epsilon)
-    univ_conf_loss = K.sum(K.log(conf+epsilon))
+    univ_conf_loss = K.sum(K.log(1-conf+epsilon))
     return K.min(loc_loss+conf_loss, axis=1)-univ_conf_loss
