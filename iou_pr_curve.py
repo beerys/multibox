@@ -87,10 +87,10 @@ for im_name in x_train_names:
         old_bbox = bbox[im_name]
         new_bbox = [old_bbox[0] * img_rows / h, old_bbox[1] * img_cols / w, (old_bbox[0] + old_bbox[2]) * img_rows / h,
                 (old_bbox[1] + old_bbox[3]) * img_cols / h]
-        y_pred = model.predict([resized_pic], batch_size=1, verbose=1)
+        y_pred = model.predict([resized_pic], batch_size=1, verbose=0)
         conf = y_pred[:, :, -1]
         conf = np.reshape(conf, (1419, 1))
-        print(np.amax(conf))
+        # print(np.amax(conf))
         # if(np.amax(conf) is not 0):
         #     conf = conf / np.amax(conf)
         #conf = conf / np.amax(conf)
@@ -136,7 +136,7 @@ for i in iou_thresh:
 plt.figure()
 for i in iou_thresh:
     plt.plot(new_pr[i][:,0],new_pr[i][:,1])
-plt.legend(iou_thresh[0], iou_thresh[1])
+plt.legend(['0.25', '0.5'], loc = 'upper left')
 plt.title('PR curves for different IOUs')
 plt.ylabel('Precision')
 plt.xlabel('Recall')
