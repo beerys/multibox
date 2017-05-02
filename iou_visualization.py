@@ -54,10 +54,12 @@ y_pred = model.predict([resized_pic], batch_size=1, verbose=1)
 conf = y_pred[:,:,-1]
 conf = np.reshape(conf, (1419, 1))
 print(np.amax(conf))
-if(np.amax(conf) is not 0):
-    conf = conf / np.amax(conf)
+# if(np.amax(conf) is not 0):
+#     conf = conf / np.amax(conf)
+conf = conf / np.amax(conf)
 
 y_pred = y_pred[:,:,:-1]
+print(np.amax(conf))
 print(y_pred.shape)
 print(conf.shape)
 
@@ -70,7 +72,7 @@ for i in range(1419):
     boxes = np.reshape(boxes, (4,1))
     boxes = [boxes[0]*h/img_rows, boxes[1]*w/img_cols, boxes[2]*h/img_rows, boxes[3]*w/img_cols]
     a = conf[i,:]
-    print(a)
+    # print(a)
     if( a is not 0):
         ax.add_patch(patches.Rectangle((boxes[3], boxes[0]), boxes[3] - boxes[1], boxes[2] - boxes[0], alpha=float(a), facecolor='green'))
 #plt.title('Bounding boxes in image ' + str(imNum))
