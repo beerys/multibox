@@ -52,7 +52,7 @@ source_dir = 'CUB_200_2011/CUB_200_2011/'
 image_folder = source_dir + 'images'
 test_folder = 'Test'
 train_folder = 'Train'
-model_name = 'Multibox_Bird_Model_1'
+model_name = 'Multibox_Bird_Model_2'
 filepath = model_name + '.h5'
 
 num_ims = 11788
