@@ -129,10 +129,14 @@ for i in range(epochs):
         y_true = np.zeros((0,4))
         for choice in choices:
             pic = imio.imread(image_folder + '/' + choice)
+            v_ratio = pic.shape[1]/img_cols
+            h_ratio = pic.shape[0]/img_rows
             pic = tform.resize(pic, size)
-            x_train = np.append(x_train, [pic], axis = 0)
 
-            y_true = np.append(y_true, [bbox[choice]], axis=0)
+            x_train = np.append(x_train, [pic], axis = 0)
+            old_bbox = bbox[choice]
+            new_bbox = [old_bbox[0]*h_ratio, old_bbox[1]*v_ratio, old_bbox[2]*h_ratio, old_bbox[3]*v_ratio]
+            y_true = np.append(y_true, [new_bbox], axis=0)
 
         y_true = np.reshape(y_true,(batch_size,1,4))
         y_true = np.tile(y_true,(1,1419,1))
