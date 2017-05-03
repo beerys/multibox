@@ -145,8 +145,8 @@ for i in iou_thresh:
         pr_curves[i][j] = np.sum(np.asarray(pr_curves[i][j]),axis=1)
         prec = pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][3])
         rec = pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][2])
-        # print(prec)
-        # print(rec)
+        print(prec)
+        print(rec)
         new_pr[i].append([prec,rec])
     new_pr[i] = np.asarray(new_pr[i])
 
