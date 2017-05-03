@@ -137,7 +137,7 @@ for im_name in x_train_names[:10]:
                             TN += 1
                 pr_curves[iou_th][thresh].append([TP, TN, FP, FN])
 print("Done predicting images")
-pickle.dump(pr_curves,open('pr_curves.p','wb'))
+pickle.dump(pr_curves,open('pr_curves2.p','wb'))
 prec = 0
 rec = 0
 for i in iou_thresh:
@@ -150,7 +150,7 @@ for i in iou_thresh:
         new_pr[i].append([prec,rec])
     new_pr[i] = np.asarray(new_pr[i])
 
-pickle.dump(new_pr,open('new_pr.p','wb'))
+pickle.dump(new_pr,open('new_pr2.p','wb'))
 
 plt.figure()
 for i in iou_thresh:
