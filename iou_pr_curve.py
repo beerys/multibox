@@ -128,7 +128,7 @@ for im_name in x_train_names[:10]:
                     if conf[box,:] >= thresh:
                         # print('high confidence')
                         if iou[box] >= iou_th:
-                            print('true positive')
+
                             TP +=1
                         else:
                             FP +=1
@@ -137,6 +137,11 @@ for im_name in x_train_names[:10]:
                             FN += 1
                         else:
                             TN += 1
+                print(iou_th)
+                print(thresh)
+                print(TP)
+                print(FN)
+                print(FP)
                 pr_curves[iou_th][thresh].append([TP, TN, FP, FN])
 print("Done predicting images")
 pickle.dump(pr_curves,open('pr_curves2.p','wb'))
