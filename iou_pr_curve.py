@@ -126,13 +126,14 @@ for im_name in x_train_names[:10]:
                 FN = 0
                 for box in range(num_boxes):
                     if conf[box,:] >= thresh:
-                        print('high confidence')
+                        # print('high confidence')
                         if iou[box] >= iou_th:
+                            print('true positive')
                             TP +=1
                         else:
                             FP +=1
                     else:
-                        if iou[box] > iou_th:
+                        if iou[box] >= iou_th:
                             FN += 1
                         else:
                             TN += 1
@@ -144,10 +145,11 @@ rec = 0
 for i in iou_thresh:
     for j in threshes:
         pr_curves[i][j] = np.sum(np.asarray(pr_curves[i][j]),axis=1)
+        print(pr_curves[i][j])
         prec = pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][3])
         rec = pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][2])
-        print(prec)
-        print(rec)
+        # print(prec)
+        # print(rec)
         new_pr[i].append([prec,rec])
     new_pr[i] = np.asarray(new_pr[i])
 
