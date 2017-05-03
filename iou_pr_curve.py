@@ -88,8 +88,8 @@ for iou in iou_thresh:
         pr_curves[iou][thresh] = []
 
 
-for im_name in x_train_names[:5]:
-    # print(im_name)
+for im_name in x_train_names:
+    print(im_name)
     pic = imio.imread(image_folder + '/' + im_name)
     if pic.ndim == 3:
         (h, w, d) = pic.shape
@@ -150,18 +150,18 @@ rec = 0
 for i in iou_thresh:
     for j in threshes:
         pr_curves[i][j] = np.asarray(pr_curves[i][j])
-        print(i)
-        print(j)
+        # print(i)
+        # print(j)
         pr_curves[i][j] = np.sum(pr_curves[i][j], axis = 0)
-        print(pr_curves[i][j])
+        # print(pr_curves[i][j])
         if((pr_curves[i][j][0]+pr_curves[i][j][3]) > 0):
             prec = float(pr_curves[i][j][0])/float((pr_curves[i][j][0]+pr_curves[i][j][3]))
         else: prec = 0
         if(pr_curves[i][j][0]+pr_curves[i][j][2]>0):
             rec = float(pr_curves[i][j][0])/float(pr_curves[i][j][0]+pr_curves[i][j][2])
         else: rec = 0
-        print(prec)
-        print(rec)
+        # print(prec)
+        # print(rec)
         new_pr[i].append([prec,rec])
     new_pr[i] = np.asarray(new_pr[i])
 
@@ -169,7 +169,7 @@ pickle.dump(new_pr,open('new_pr2.p','wb'))
 
 plt.figure()
 for i in iou_thresh:
-    print(new_pr[i])
+    # print(new_pr[i])
     plt.plot(new_pr[i][:,0],new_pr[i][:,1])
 plt.legend(['0.1','0.25', '0.5'], loc = 'upper left')
 plt.title('PR curves for different IOUs')
