@@ -68,7 +68,7 @@ print(np.amax(conf))
 #     conf = conf / np.amax(conf)
 # conf = conf / np.amax(conf)
 
-y_pred = y_pred[:,:,:-1] + priors
+y_pred = y_pred[:,:,:-1]# + priors
 print(np.amax(conf))
 print(y_pred.shape)
 print(conf.shape)

@@ -16,6 +16,7 @@ import skimage.transform as tform
 import numpy as np
 from get_data_info import get_data_info
 from sklearn.preprocessing import normalize
+from sklearn.metrics import precision_recall_curve
 
 import keras
 from keras.models import Model
@@ -76,7 +77,7 @@ x_train_names, x_test_names, y_train, y_test, classes, bbox = get_data_info(num_
 
 #load the model
 model = load_model(filepath)
-iou_thresh = [0.1,0.25,0.5]
+iou_thresh = [0.0,0.25,0.5]
 threshes = [.1*i for i in range(10)]
 pr_curves = {}
 new_pr = {}
@@ -87,7 +88,7 @@ for iou in iou_thresh:
         pr_curves[iou][thresh] = []
 
 
-for im_name in x_train_names:
+for im_name in x_train_names[:10]:
     print(im_name)
     pic = imio.imread(image_folder + '/' + im_name)
     if pic.ndim == 3:
