@@ -165,7 +165,7 @@ pickle.dump(new_pr,open('new_pr2.p','wb'))
 
 plt.figure()
 for i in iou_thresh:
-    print(new_pr[i][:,0])
+    print(new_pr[i])
     plt.plot(new_pr[i][:,0],new_pr[i][:,1])
 plt.legend(['0.1','0.25', '0.5'], loc = 'upper left')
 plt.title('PR curves for different IOUs')
