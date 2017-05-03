@@ -83,7 +83,7 @@ for i in range(num_boxes):
     boxes = [boxes[0]*w/img_rows, boxes[1]*h/img_cols, boxes[2]*w/img_rows, boxes[3]*h/img_cols]
     a = conf[i,:]
     # print(a)
-    if( a > 0.5):
+    if( a > 0.2):
         ax.add_patch(patches.Rectangle((boxes[1], boxes[0]), boxes[3] - boxes[1], boxes[2] - boxes[0], alpha=float(a), facecolor='green'))
 #plt.title('Bounding boxes in image ' + str(imNum))
 plt.axis('off')
