@@ -144,10 +144,10 @@ prec = 0
 rec = 0
 for i in iou_thresh:
     for j in threshes:
-        pr_curves[i][j] = np.sum(np.asarray(pr_curves[i][j]),axis=1)
+        pr_curves[i][j] = np.asarray(pr_curves[i][j])
         print(i)
         print(j)
-        print(pr_curves[i][j])
+        print(pr_curves[i][j].shape)
         prec = pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][3])
         rec = pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][2])
         # print(prec)
