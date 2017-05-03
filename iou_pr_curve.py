@@ -78,7 +78,7 @@ x_train_names, x_test_names, y_train, y_test, classes, bbox = get_data_info(num_
 #load the model
 model = load_model(filepath)
 iou_thresh = [0.0,0.25,0.5]
-threshes = [.1*i for i in range(10)]
+threshes = [.05*i for i in range(10)]
 pr_curves = {}
 new_pr = {}
 for iou in iou_thresh:
@@ -88,8 +88,8 @@ for iou in iou_thresh:
         pr_curves[iou][thresh] = []
 
 
-for im_name in x_train_names[:10]:
-    print(im_name)
+for im_name in x_train_names[:5]:
+    # print(im_name)
     pic = imio.imread(image_folder + '/' + im_name)
     if pic.ndim == 3:
         (h, w, d) = pic.shape
@@ -137,11 +137,11 @@ for im_name in x_train_names[:10]:
                             FN += 1
                         else:
                             TN += 1
-                print(iou_th)
-                print(thresh)
-                print(TP)
-                print(FN)
-                print(FP)
+                # print(iou_th)
+                # print(thresh)
+                # print(TP)
+                # print(FN)
+                # print(FP)
                 pr_curves[iou_th][thresh].append([TP, TN, FP, FN])
 print("Done predicting images")
 pickle.dump(pr_curves,open('pr_curves2.p','wb'))
