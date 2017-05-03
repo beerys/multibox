@@ -126,6 +126,7 @@ for im_name in x_train_names[:10]:
                 FN = 0
                 for box in range(num_boxes):
                     if conf[box,:] >= thresh:
+                        print('high confidence')
                         if iou[box] >= iou_th:
                             TP +=1
                         else:
