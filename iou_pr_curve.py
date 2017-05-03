@@ -154,8 +154,12 @@ for i in iou_thresh:
         print(j)
         pr_curves[i][j] = np.sum(pr_curves[i][j], axis = 0)
         print(pr_curves[i][j])
-        prec = float(pr_curves[i][j][0])/float((pr_curves[i][j][0]+pr_curves[i][j][3]))
-        rec = float(pr_curves[i][j][0])/float(pr_curves[i][j][0]+pr_curves[i][j][2])
+        if((pr_curves[i][j][0]+pr_curves[i][j][3]) > 0):
+            prec = float(pr_curves[i][j][0])/float((pr_curves[i][j][0]+pr_curves[i][j][3]))
+        else: prec = 0
+        if(pr_curves[i][j][0]+pr_curves[i][j][2]>0):
+            rec = float(pr_curves[i][j][0])/float(pr_curves[i][j][0]+pr_curves[i][j][2])
+        else: rec = 0
         print(prec)
         print(rec)
         new_pr[i].append([prec,rec])
