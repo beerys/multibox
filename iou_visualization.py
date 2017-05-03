@@ -68,7 +68,7 @@ print(np.amax(conf))
 #     conf = conf / np.amax(conf)
 # conf = conf / np.amax(conf)
 
-y_pred = y_pred[:,:,:-1]# + priors
+y_pred = y_pred[:,:,:-1] + priors
 print(np.amax(conf))
 print(y_pred.shape)
 print(conf.shape)
@@ -84,7 +84,7 @@ for i in range(num_boxes):
     a = conf[i,:]
     # print(a)
     if( a is not 0):
-        ax.add_patch(patches.Rectangle((boxes[3], boxes[0]), boxes[3] - boxes[1], boxes[2] - boxes[0], alpha=float(a), facecolor='green'))
+        ax.add_patch(patches.Rectangle((boxes[1], boxes[0]), boxes[3] - boxes[1], boxes[2] - boxes[0], alpha=float(a), facecolor='green'))
 #plt.title('Bounding boxes in image ' + str(imNum))
 plt.axis('off')
 img_name = choice[0].split('/')[1]
