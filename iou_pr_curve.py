@@ -125,8 +125,8 @@ for im_name in x_train_names[:10]:
                 FP = 0
                 FN = 0
                 for box in range(num_boxes):
-                    if conf[box,:] > thresh:
-                        if iou[box] > iou_th:
+                    if conf[box,:] >= thresh:
+                        if iou[box] >= iou_th:
                             TP +=1
                         else:
                             FP +=1
@@ -145,8 +145,8 @@ for i in iou_thresh:
         pr_curves[i][j] = np.sum(np.asarray(pr_curves[i][j]),axis=1)
         prec = pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][3])
         rec = pr_curves[i][j][0]/(pr_curves[i][j][0]+pr_curves[i][j][2])
-        print(prec)
-        print(rec)
+        # print(prec)
+        # print(rec)
         new_pr[i].append([prec,rec])
     new_pr[i] = np.asarray(new_pr[i])
 
